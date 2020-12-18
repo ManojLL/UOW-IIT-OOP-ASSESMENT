@@ -1,1 +1,11 @@
-<p>nav-bar works!</p>
+<mat-toolbar class="toolbar-nav" color="primary">
+  <mat-toolbar-row>
+    <a class="tool-bar-nav" mat-button [routerLink]="'home'"><h1>PREMIER LEAGUE MANAGER</h1></a>
+    <div class="menu-container">
+      <a class="tool-bar-nav" mat-button [routerLink]="'home'">HOME </a>
+      <a class="tool-bar-nav" mat-button [routerLink]="'point-table'">POINT</a>
+      <a class="tool-bar-nav" mat-button [routerLink]="'matches'">MATCHES</a>
+      <a class="tool-bar-nav" mat-button [routerLink]="'add-match'">ADD MATCH</a>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

@@ -9,6 +9,8 @@ import {NavBarComponent} from './layouts/components/nav-bar/nav-bar.component';
 import {TableComponent} from './layouts/components/table/table.component';
 import {FooterComponent} from './layouts/components/footer/footer.component';
 import {PremierLeagueManagerRoutes} from './premier-league-manager-routes';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
 
@@ -24,6 +26,8 @@ import {PremierLeagueManagerRoutes} from './premier-league-manager-routes';
   imports: [
     CommonModule,
     PremierLeagueManagerRoutes,
+    MatToolbarModule,
+    MatButtonModule,
   ]
 })
 export class PremierLeagueManagerModule {
