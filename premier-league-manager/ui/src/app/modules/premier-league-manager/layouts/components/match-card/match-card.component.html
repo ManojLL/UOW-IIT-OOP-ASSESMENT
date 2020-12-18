@@ -1,0 +1,13 @@
+<mat-card class="shadow">
+  <mat-card-header class="card-head">
+    <mat-card-title>Date : {{matchDetails.date}}</mat-card-title>
+  </mat-card-header>
+  <div class="match-card-container">
+    <mat-card class="teamNameA"><h1 class="a">{{matchDetails.teamA}}</h1></mat-card>
+    <mat-card class="team-score">{{matchDetails.teamAScore}}</mat-card>
+    <mat-card class="vs">VS</mat-card>
+    <mat-card class="team-score">{{matchDetails.teamBScore}}</mat-card>
+    <mat-card class="teamNameB"><h1 class="b">{{matchDetails.teamB}}</h1></mat-card>
+  </div>
+  <h2 class="match-status">{{matchDetails.status}}</h2>
+</mat-card>

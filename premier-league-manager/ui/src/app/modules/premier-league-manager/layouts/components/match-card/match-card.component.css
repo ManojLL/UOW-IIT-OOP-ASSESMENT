@@ -1,0 +1,51 @@
+.match-card-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.teamNameA ,.teamNameB{
+  width: 35%;
+  font-size: 20px;
+  color: #333;
+  background-color: transparent;
+
+}
+
+.team-score{
+  width: 10%;
+  font-size: 30px;
+  background-color: #eccc68;
+}
+
+.vs{
+  padding-top: 40px;
+  height: 100px;
+  width: 10%;
+  color: white;
+  font-size: 30px;
+  justify-content: center;
+  align-items: center;
+background-color:#3742fa;
+}
+
+.a{
+  float: right;
+}
+
+.b{
+  float: left;
+}
+
+.shadow{
+ background-color: #ced6e0;
+}
+
+.match-status{
+  color: #ff6b81;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+}
