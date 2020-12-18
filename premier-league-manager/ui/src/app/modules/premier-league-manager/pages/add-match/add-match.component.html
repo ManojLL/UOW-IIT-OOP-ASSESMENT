@@ -1,1 +1,15 @@
-<p>add-match works!</p>
+<div>
+  <mat-card>
+    <mat-card-header class="card-head">
+      <mat-card-title><h1>LATEST MATCHES</h1></mat-card-title>
+    </mat-card-header>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="createMatch()">Primary</button>
+    </mat-card-actions>
+
+  </mat-card>
+  <mat-card *ngIf="matchCreated">
+    <app-match-card [matchDetails]="newMatchData"></app-match-card>
+  </mat-card>
+</div>

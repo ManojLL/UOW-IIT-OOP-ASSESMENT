@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MatchListComponent } from './match-list.component';
+import { HeroImageComponent } from './hero-image.component';
 
-describe('MatchListComponent', () => {
-  let component: MatchListComponent;
-  let fixture: ComponentFixture<MatchListComponent>;
+describe('HeroImageComponent', () => {
+  let component: HeroImageComponent;
+  let fixture: ComponentFixture<HeroImageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MatchListComponent ]
+      declarations: [ HeroImageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MatchListComponent);
+    fixture = TestBed.createComponent(HeroImageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

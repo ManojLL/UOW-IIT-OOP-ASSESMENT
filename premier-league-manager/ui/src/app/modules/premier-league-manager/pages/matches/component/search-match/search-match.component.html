@@ -1,0 +1,17 @@
+<form class="search-form" #myform="ngForm">
+  <h4>SEARCH MATCH </h4>
+  <mat-form-field class="form-full-width">
+    <mat-label>YEAR</mat-label>
+    <input type="number"
+           name="year"
+           #year="ngModel"
+           id="year"
+           matInput
+           placeholder="ex : 2020"
+           required
+           ngModel
+    />
+
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit">Search</button>
+</form>

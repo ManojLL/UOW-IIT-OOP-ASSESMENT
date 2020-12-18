@@ -1,21 +1,20 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
+import {HomePageComponent} from './pages/home-page/home-page.component';
 import {ManagerLayoutComponent} from './layouts/manager-layout/manager-layout.component';
+import {MatchesComponent} from './pages/matches/matches.component';
 import {PointTableComponent} from './pages/point-table/point-table.component';
 import {AddMatchComponent} from './pages/add-match/add-match.component';
-import {MatchListComponent} from './pages/match-list/match-list.component';
-import {HomeComponent} from './pages/home/home.component';
-
 
 const routes: Routes = [
-  {path: '', redirectTo: '/manager/home', pathMatch: 'full'},
+  {path: '', redirectTo: '/premierLeague-manager/home', pathMatch: 'full'},
   {
     path: '',
     component: ManagerLayoutComponent,
     children: [
       {
         path: 'home',
-        component: HomeComponent,
+        component: HomePageComponent,
       },
       {
         path: 'point-table',
@@ -23,7 +22,7 @@ const routes: Routes = [
       },
       {
         path: 'matches',
-        component: MatchListComponent,
+        component: MatchesComponent,
       },
       {
         path: 'add-match',
@@ -37,5 +36,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PremierLeagueManagerRoutes {
+export class PremierLeagueRouterModule {
 }

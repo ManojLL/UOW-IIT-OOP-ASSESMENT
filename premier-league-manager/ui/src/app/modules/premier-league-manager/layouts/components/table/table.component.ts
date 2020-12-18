@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {ITable} from '../../../core/types/table.type';
 
 @Component({
   selector: 'app-table',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TableComponent implements OnInit {
 
-  constructor() { }
+  @Input() data: ITable[];
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
+
 
 }

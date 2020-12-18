@@ -1,1 +1,20 @@
-<p>point-table works!</p>
+<div>
+  <mat-tab-group [color]="color" [backgroundColor]="bgColor" mat-align-tabs="center">
+    <mat-tab label="ACCORDING TO POINTS">
+      <mat-card>
+        <app-table [data]="data" class="container-point-table"></app-table>
+      </mat-card>
+    </mat-tab>
+    <mat-tab label="ACCORDING TO SCORED GOALS">
+      <mat-card>
+        <app-table [data]="data" class="container-point-table"></app-table>
+      </mat-card>
+    </mat-tab>
+    <mat-tab label="ACCORDING TO NUMBER OF WINS">
+      <mat-card>
+        <app-table [data]="data" class="container-point-table"></app-table>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
+
+</div>

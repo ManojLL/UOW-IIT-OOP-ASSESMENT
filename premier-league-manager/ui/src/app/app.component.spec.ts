@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'ui'`, () => {
+  it(`should have as title 'premier-league-gui'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('ui');
+    expect(app.title).toEqual('premier-league-manager-layout-gui');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('ui app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('premier-league-manager-layout-gui app is running!');
   });
 });

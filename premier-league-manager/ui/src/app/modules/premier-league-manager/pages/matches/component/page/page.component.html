@@ -1,0 +1,10 @@
+<div>
+  <div>
+    <div *ngFor="let match of matchDetails | paginate : config" class="match-item">
+      <app-match-card [matchDetails]="match"></app-match-card>
+    </div>
+  </div>
+  <div>
+    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+  </div>
+</div>
