@@ -1,3 +1,4 @@
+import scala.reflect.internal.Mode
 import scala.sys.process.Process
 
 /*
@@ -55,6 +56,7 @@ lazy val `ui-prod-build` = taskKey[Unit]("Run UI build when packaging the applic
   implicit val userInterfaceRoot = baseDirectory.value / "ui"
   if (executeProdBuild != Success) throw new Exception("Oops! UI Build crashed.")
 }
+
 
 // Execute frontend prod build task prior to play dist execution.
 dist := (dist dependsOn `ui-prod-build`).value
