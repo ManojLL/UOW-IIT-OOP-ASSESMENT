@@ -4,6 +4,7 @@ import entities.clubs.FootballClub;
 import leagueManagers.PremierLeagueManager;
 import leagueManagers.supportClasses.GoalCompare;
 import leagueManagers.supportClasses.WinCompare;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -12,7 +13,9 @@ public class TableService {
     private static TableService tableService;
 
     public static TableService getTableService() {
+
         if (tableService == null) {
+            PremierLeagueManager.getInstance().loadData();
             tableService = new TableService();
         }
         return tableService;

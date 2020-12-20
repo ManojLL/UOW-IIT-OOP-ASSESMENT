@@ -5,8 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import entities.clubs.FootballClub;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import play.libs.Json;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
+import services.MatchService;
 import services.TableService;
 import utils.PremierLeagueApplication;
 
@@ -38,4 +41,5 @@ public class TableController extends Controller {
         JsonNode jsonData = mapper.convertValue(footballClubList, JsonNode.class);
         return ok(PremierLeagueApplication.createResponse(jsonData, true));
     }
+
 }

@@ -42,7 +42,7 @@ public class CliApplication {
                     CliService.getCliService().createMatch();
                     break;
                 case "7":
-//                    CliService.getCliService().saveData();
+                    PremierLeagueManager.getInstance().saveData();
                     System.out.println("exiting .........");
                     break menu;
                 default:

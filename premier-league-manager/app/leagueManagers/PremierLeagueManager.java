@@ -5,23 +5,21 @@ import entities.clubs.SportClub;
 import entities.date.Date;
 import entities.match.Match;
 
+import java.io.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class PremierLeagueManager implements LeagueManager {
     private static final int MAX_COUNT = 20;
     private static final int WIN_POINT = 2;
     private static final int DEFEAT_POINT = 0;
     private static final int DRAW_POINT = 1;
-    private static final String CLUB_FILE_PATH = "gvjvjk";
-    private static final String MATCH_FILE_PATH = "gvjvjk";
+    private static final String CLUB_FILE_PATH = "club.txt";
+    private static final String MATCH_FILE_PATH = "matches.txt";
     private List<FootballClub> footballClubsList = new ArrayList<>(MAX_COUNT);
     private List<Match> matchList = new ArrayList<>();
     private static PremierLeagueManager instance;
-    private static int clubCount = 0;
+    private static int clubCount;
 
     private PremierLeagueManager() {
     }
@@ -29,7 +27,9 @@ public class PremierLeagueManager implements LeagueManager {
     public static PremierLeagueManager getInstance() {
         if (instance == null) {
             synchronized (PremierLeagueManager.class) {
-                instance = new PremierLeagueManager();
+                if (instance == null) {
+                    instance = new PremierLeagueManager();
+                }
             }
         }
         return instance;
@@ -137,12 +137,15 @@ public class PremierLeagueManager implements LeagueManager {
 
     @Override
     public void saveData() {
-
+        System.out.println("saving data --");
+        saveToFile(footballClubsList, CLUB_FILE_PATH);
+        saveToFile(matchList, MATCH_FILE_PATH);
     }
 
     @Override
     public void loadData() {
-
+        loadDataFromFile(CLUB_FILE_PATH, "clubs");
+        loadDataFromFile(MATCH_FILE_PATH, "matches");
     }
 
     public List<FootballClub> getFootballClubsList() {
@@ -170,5 +173,48 @@ public class PremierLeagueManager implements LeagueManager {
 
     public int getClubCount() {
         return clubCount;
+    }
+
+    private void saveToFile(List list, String file) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            for (Object item : list) {
+                objectOutputStream.writeObject(item);
+            }
+            objectOutputStream.flush();
+            fileOutputStream.close();
+            objectOutputStream.close();
+        } catch (EOFException | FileNotFoundException e) {
+            System.out.println("file not found");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadDataFromFile(String file, String type) {
+        try {
+            FileInputStream fileInputStream = new FileInputStream(file);
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            for (; ; ) {
+                try {
+                    if (type.equals("matches")) {
+                        Match match = (Match) objectInputStream.readObject();
+                        matchList.add(match);
+                    } else {
+                        FootballClub footballClub = (FootballClub) objectInputStream.readObject();
+                        footballClubsList.add(footballClub);
+                        clubCount++;
+                    }
+                } catch (EOFException e) {
+                    System.out.println("loaded");
+                    break;
+                }
+            }
+            fileInputStream.close();
+            objectInputStream.close();
+        } catch (Exception e) {
+            System.out.println("no data to load");
+        }
     }
 }

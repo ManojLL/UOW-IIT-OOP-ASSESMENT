@@ -16,6 +16,7 @@ public class MatchService {
 
     public static MatchService getInstance() {
         if (premierLeagueService == null) {
+            PremierLeagueManager.getInstance().loadData();
             premierLeagueService = new MatchService();
         }
         return premierLeagueService;
@@ -39,6 +40,7 @@ public class MatchService {
             Match match = new Match(teamA, teamB, matchDate, teamAScore, teamBScore, status);
 
             PremierLeagueManager.getInstance().addMatch(match);
+            PremierLeagueManager.getInstance().saveData();
             return match;
         }
         return null;
@@ -62,4 +64,5 @@ public class MatchService {
     }
 
 //    public List<Match> searchedMatchData(){}
+
 }
