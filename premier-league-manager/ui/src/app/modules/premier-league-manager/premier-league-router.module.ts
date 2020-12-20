@@ -7,7 +7,6 @@ import {PointTableComponent} from './pages/point-table/point-table.component';
 import {AddMatchComponent} from './pages/add-match/add-match.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/premierLeague-manager/home', pathMatch: 'full'},
   {
     path: '',
     component: ManagerLayoutComponent,
@@ -27,7 +26,7 @@ const routes: Routes = [
       {
         path: 'add-match',
         component: AddMatchComponent
-      }
+      }, {path: '**', redirectTo: '/premierLeague-manager/home', pathMatch: 'full'},
     ]
   }
 ];

@@ -9,6 +9,7 @@ lazy val root = (project in file(".")).enablePlugins(PlayJava).settings(
 
 scalaVersion := "2.13.3"
 
+libraryDependencies += guice
 // Test Database
 libraryDependencies += "com.h2database" % "h2" % "1.4.199"
 

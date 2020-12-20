@@ -12,6 +12,6 @@ export class MatchesService {
   }
 
   getMatchDetails() {
-    //todo
+    // todo
   }
 }
