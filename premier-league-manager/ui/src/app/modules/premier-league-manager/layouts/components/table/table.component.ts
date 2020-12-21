@@ -9,7 +9,7 @@ import {ITable} from '../../../core/types/table.type';
 export class TableComponent implements OnInit {
 
   @Input() data: ITable[];
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['clubName', 'numOfPlayedMatch', 'numOfWin', 'numOfDefeat','numOfDraw', 'scoredGoal','receivedGoal','point'];
 
   constructor() {
   }

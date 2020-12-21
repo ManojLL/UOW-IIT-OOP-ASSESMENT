@@ -4,6 +4,7 @@ import entities.clubs.FootballClub;
 import leagueManagers.PremierLeagueManager;
 import leagueManagers.supportClasses.GoalCompare;
 import leagueManagers.supportClasses.WinCompare;
+import utils.PremierLeagueApplication;
 
 import java.util.Collections;
 import java.util.List;
@@ -13,18 +14,14 @@ public class TableService {
     private static TableService tableService;
 
     public static TableService getTableService() {
-
         if (tableService == null) {
-            PremierLeagueManager.getInstance().loadData();
             tableService = new TableService();
         }
         return tableService;
     }
 
     public List<FootballClub> leagueTableAccordingToPoints() {
-        List<FootballClub> listAccordingToPoints = PremierLeagueManager.getInstance().getFootballClubsList();
-        Collections.sort(listAccordingToPoints);
-        return listAccordingToPoints;
+        return PremierLeagueManager.getInstance().getFootballClubsList();
     }
 
     public List<FootballClub> leagueTableAccordingToNumOfWins() {

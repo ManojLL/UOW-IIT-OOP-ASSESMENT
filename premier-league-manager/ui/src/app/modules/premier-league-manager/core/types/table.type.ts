@@ -1,6 +1,11 @@
 export interface ITable {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+  clubName :string,
+  clubLocation : string,
+  numOfWin:number,
+  numOfDefeat : number,
+  numOfDraw : number,
+  numOfPlayedMatch : number,
+  point: number,
+  scoredGoal : number,
+  receivedGoal : number
 }

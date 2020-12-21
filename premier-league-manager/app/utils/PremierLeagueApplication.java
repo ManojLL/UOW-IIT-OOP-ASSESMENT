@@ -2,6 +2,7 @@ package utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import leagueManagers.PremierLeagueManager;
 import play.libs.Json;
 
 public class PremierLeagueApplication {
@@ -13,5 +14,9 @@ public class PremierLeagueApplication {
         else result.set("response", (JsonNode) response);
 
         return result;
+    }
+
+    public static void loaData(){
+        if(PremierLeagueManager.getInstance().getClubCount() == 0) PremierLeagueManager.getInstance().loadData();
     }
 }

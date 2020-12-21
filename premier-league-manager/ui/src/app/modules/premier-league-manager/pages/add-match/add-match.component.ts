@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {IMatchType} from '../../core/types/match.type';
+import {MatchesService} from "../../core/services/matchService/matches.service";
 
 @Component({
   selector: 'app-add-match',
@@ -10,22 +11,28 @@ export class AddMatchComponent implements OnInit {
   newMatchData: IMatchType;
   matchCreated = false;
 
-  constructor() {
+  constructor(private matchesService: MatchesService) {
   }
 
   ngOnInit(): void {
   }
 
-  createMatch(): void {
-    // todo call createMatch
-    this.newMatchData = {
-      teamB: 'aj',
-      teamA: 's',
-      teamAScore: 1,
-      teamBScore: 3,
-      status: 'hjbjvjv',
-      date: 'dqdq'
-    };
-    this.matchCreated = true;
+  async createMatch() {
+    try {
+      const match = await this.matchesService.createRandomMatch().toPromise();
+      this.matchCreated = match.status
+      if (this.matchCreated) {
+        this.newMatchData = {
+          teamA: match.response.teamA.clubName,
+          teamB: match.response.teamB.clubName,
+          teamAScore: match.response.teamAScore,
+          teamBScore: match.response.teamBScore,
+          date: match.response.date.year.toString() + "/" + match.response.date.month.toString() + "/" + match.response.date.day.toString(),
+          status: match.response.status
+        }
+      }
+    } catch (error) {
+      console.log(`[ERROR] getAllTableData => ${error.message}`, error);
+    }
   }
 }

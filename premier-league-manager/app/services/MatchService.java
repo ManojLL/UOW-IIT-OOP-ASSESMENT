@@ -5,6 +5,7 @@ import entities.date.Date;
 import entities.match.Match;
 import leagueManagers.PremierLeagueManager;
 import leagueManagers.supportClasses.MatchDateCompare;
+import utils.PremierLeagueApplication;
 
 import java.util.Collections;
 import java.util.List;
@@ -16,7 +17,6 @@ public class MatchService {
 
     public static MatchService getInstance() {
         if (premierLeagueService == null) {
-            PremierLeagueManager.getInstance().loadData();
             premierLeagueService = new MatchService();
         }
         return premierLeagueService;
