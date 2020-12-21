@@ -14,8 +14,8 @@ public class PremierLeagueManager implements LeagueManager {
     private static final int WIN_POINT = 2;
     private static final int DEFEAT_POINT = 0;
     private static final int DRAW_POINT = 1;
-    private static final String CLUB_FILE_PATH = "club.txt";
-    private static final String MATCH_FILE_PATH = "matches.txt";
+    private static final String CLUB_FILE_PATH = "../public/club.txt";
+    private static final String MATCH_FILE_PATH = "../public/matches.txt";
     private List<FootballClub> footballClubsList = new ArrayList<>(MAX_COUNT);
     private List<Match> matchList = new ArrayList<>();
     private static PremierLeagueManager instance;
@@ -175,7 +175,7 @@ public class PremierLeagueManager implements LeagueManager {
         return clubCount;
     }
 
-    private void saveToFile(List list, String file) {
+    public void saveToFile(List list, String file) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -192,7 +192,7 @@ public class PremierLeagueManager implements LeagueManager {
         }
     }
 
-    private void loadDataFromFile(String file, String type) {
+    public void loadDataFromFile(String file, String type) {
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
@@ -217,4 +217,5 @@ public class PremierLeagueManager implements LeagueManager {
             System.out.println("no data to load");
         }
     }
+
 }

@@ -5,6 +5,7 @@ import entities.date.Date;
 import entities.match.Match;
 import leagueManagers.PremierLeagueManager;
 import leagueManagers.supportClasses.MatchDateCompare;
+import utils.ApplicationIO;
 import utils.PremierLeagueApplication;
 
 import java.util.Collections;
@@ -14,11 +15,15 @@ import java.util.Random;
 public class MatchService {
     private static MatchService premierLeagueService;
 
+    private MatchService() {
+    }
 
     public static MatchService getInstance() {
         if (premierLeagueService == null) {
+
             premierLeagueService = new MatchService();
         }
+        ApplicationIO.loadMatchData();
         return premierLeagueService;
     }
 
@@ -40,7 +45,8 @@ public class MatchService {
             Match match = new Match(teamA, teamB, matchDate, teamAScore, teamBScore, status);
 
             PremierLeagueManager.getInstance().addMatch(match);
-            PremierLeagueManager.getInstance().saveData();
+            ApplicationIO.saveClubData();
+            ApplicationIO.saveMatchData();
             return match;
         }
         return null;

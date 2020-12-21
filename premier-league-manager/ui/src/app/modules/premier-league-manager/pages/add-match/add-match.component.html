@@ -1,15 +1,17 @@
 <div>
   <mat-card>
     <mat-card-header class="card-head">
-      <mat-card-title><h1>LATEST MATCHES</h1></mat-card-title>
+      <mat-card-title><h1>ADD RANDOM MATCH</h1></mat-card-title>
     </mat-card-header>
-
     <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="createMatch()">Primary</button>
+      <button mat-raised-button color="primary" (click)="createMatch()">ADD MATCH</button>
     </mat-card-actions>
 
   </mat-card>
   <mat-card *ngIf="matchCreated" class="match-card">
     <app-match-card [matchDetails]="newMatchData"></app-match-card>
+  </mat-card>
+  <mat-card *ngIf="!matchCreated" class="match-card">
+    <h1>NO CLUBS TO CREATE A MATCH</h1>
   </mat-card>
 </div>
