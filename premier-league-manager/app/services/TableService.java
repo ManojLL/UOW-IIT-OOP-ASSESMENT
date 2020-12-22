@@ -11,12 +11,14 @@ import java.util.List;
 
 public class TableService {
     private static TableService tableService;
+    private List<FootballClub> footballClubs;
 
     private TableService() {
+        ApplicationIO.loadClubData();
+        footballClubs = PremierLeagueManager.getInstance().getFootballClubsList();
     }
 
     public synchronized static TableService getTableService() {
-        ApplicationIO.loadClubData();
         if (tableService == null) {
             tableService = new TableService();
         }
@@ -24,20 +26,20 @@ public class TableService {
     }
 
     public List<FootballClub> leagueTableAccordingToPoints() {
-        List<FootballClub> listAccordingToPoints = PremierLeagueManager.getInstance().getFootballClubsList();
-        Collections.sort(listAccordingToPoints);
-        return listAccordingToPoints;
+//        List<FootballClub> listAccordingToPoints = PremierLeagueManager.getInstance().getFootballClubsList();
+        Collections.sort(footballClubs);
+        return footballClubs;
     }
 
     public List<FootballClub> leagueTableAccordingToNumOfWins() {
-        List<FootballClub> listAccordingToWins = PremierLeagueManager.getInstance().getFootballClubsList();
-        Collections.sort(listAccordingToWins, new WinCompare());
-        return listAccordingToWins;
+//        List<FootballClub> listAccordingToWins = PremierLeagueManager.getInstance().getFootballClubsList();
+        Collections.sort(footballClubs, new WinCompare());
+        return footballClubs;
     }
 
     public List<FootballClub> leagueTableAccordingToNumOfGoals() {
-        List<FootballClub> listAccordingToGoals = PremierLeagueManager.getInstance().getFootballClubsList();
-        Collections.sort(listAccordingToGoals, new GoalCompare());
-        return listAccordingToGoals;
+//        List<FootballClub> listAccordingToGoals = PremierLeagueManager.getInstance().getFootballClubsList();
+        Collections.sort(footballClubs, new GoalCompare());
+        return footballClubs;
     }
 }
