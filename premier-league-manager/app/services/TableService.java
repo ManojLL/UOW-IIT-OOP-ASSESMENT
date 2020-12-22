@@ -10,19 +10,16 @@ import java.util.Collections;
 import java.util.List;
 
 public class TableService {
-
     private static TableService tableService;
 
     private TableService() {
     }
 
-    public static TableService getTableService() {
-
+    public synchronized static TableService getTableService() {
+        ApplicationIO.loadClubData();
         if (tableService == null) {
-
             tableService = new TableService();
         }
-        ApplicationIO.loadClubData();
         return tableService;
     }
 

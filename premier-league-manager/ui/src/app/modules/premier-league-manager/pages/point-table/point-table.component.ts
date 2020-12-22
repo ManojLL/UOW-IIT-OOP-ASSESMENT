@@ -18,17 +18,18 @@ export class PointTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getLeagueTableAccordingToPoints()
+    this.getLeagueTableAccordingToPoints().then(r => null)
 
-    this.getLeagueTableAccordingToGoals()
+    this.getLeagueTableAccordingToGoals().then(r => null)
 
-    this.getLeagueTableAccordingToWins()
+    this.getLeagueTableAccordingToWins().then(r => null)
   }
 
   async getLeagueTableAccordingToPoints() {
     try {
       const tableData = await this.tableService.getLeagueTableAccordingToPoints().toPromise();
       this.dataPoint = tableData.response;
+      console.log(this.dataPoint)
     } catch (error) {
       console.log(`[ERROR] getAllTableData => ${error.message}`, error);
     }
@@ -38,6 +39,7 @@ export class PointTableComponent implements OnInit {
     try {
       const tableData = await this.tableService.getLeagueTableAccordingToGoals().toPromise();
       this.dataGoal = tableData.response;
+      console.log(this.dataGoal)
     } catch (error) {
       console.log(`[ERROR] getAllTableData => ${error.message}`, error);
     }
@@ -47,6 +49,7 @@ export class PointTableComponent implements OnInit {
     try {
       const tableData = await this.tableService.getLeagueTableAccordingToWins().toPromise();
       this.dataWin = tableData.response;
+      console.log(this.dataWin)
     } catch (error) {
       console.log(`[ERROR] getAllTableData => ${error.message}`, error);
     }

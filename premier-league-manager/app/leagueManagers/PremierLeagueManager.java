@@ -4,6 +4,8 @@ import entities.clubs.FootballClub;
 import entities.clubs.SportClub;
 import entities.date.Date;
 import entities.match.Match;
+import leagueManagers.supportClasses.GoalCompare;
+import leagueManagers.supportClasses.WinCompare;
 
 import java.io.*;
 import java.time.LocalDate;

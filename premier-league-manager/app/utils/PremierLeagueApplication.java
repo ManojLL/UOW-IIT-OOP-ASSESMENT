@@ -16,7 +16,4 @@ public class PremierLeagueApplication {
         return result;
     }
 
-    public static void loaData(){
-        if(PremierLeagueManager.getInstance().getClubCount() == 0) PremierLeagueManager.getInstance().loadData();
-    }
 }

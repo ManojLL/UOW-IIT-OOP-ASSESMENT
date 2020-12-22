@@ -18,16 +18,15 @@ public class MatchService {
     private MatchService() {
     }
 
-    public static MatchService getInstance() {
+    public synchronized static MatchService getInstance() {
         if (premierLeagueService == null) {
-
             premierLeagueService = new MatchService();
         }
-        ApplicationIO.loadMatchData();
         return premierLeagueService;
     }
 
     public Match createNewMatch() {
+        ApplicationIO.loadMatchData();
         if (PremierLeagueManager.getInstance().getClubCount() >= 2) {
             FootballClub teamA = PremierLeagueManager.getInstance().getRandomClub();
             FootballClub teamB = getClub(teamA, PremierLeagueManager.getInstance().getRandomClub());
@@ -64,6 +63,7 @@ public class MatchService {
     }
 
     public List<Match> matchesAccordingToDate() {
+        ApplicationIO.loadMatchData();
         List<Match> matchList = PremierLeagueManager.getInstance().getMatchList();
         Collections.sort(matchList, new MatchDateCompare());
         return matchList;
