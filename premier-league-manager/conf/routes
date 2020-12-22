@@ -7,23 +7,28 @@ GET         /                              controllers.FrontendController.index(
 
 # Serve all matches according to date
 +nocsrf
-GET         /api/matches/allMatches        controllers.MatchController.getMatchAccordingToDate
+GET         /api/matches/allMatches        controllers.PremierLEgueController.getMatchAccordingToDate
+#GET         /api/matches/allMatches        controllers.MatchController.getMatchAccordingToDate
 
 # create a random match and serve it
 +nocsrf
-POST        /api/matches/random            controllers.MatchController.createMatch
+POST        /api/matches/random            controllers.PremierLEgueController.createMatch
+#POST        /api/matches/random            controllers.MatchController.createMatch
 
 # serve league table according to points
 +nocsrf
-GET         /api/tables/points             controllers.TableController.getLeagueTableAccordingToPoints
+GET         /api/tables/points             controllers.PremierLEgueController.getLeagueTableAccordingToPoints
+#GET         /api/tables/points             controllers.TableController.getLeagueTableAccordingToPoints
 
 # serve league table according to scored goals
 +nocsrf
-GET         /api/tables/goals              controllers.TableController.getLeagueTableAccordingToGoals
+GET         /api/tables/goals             controllers.PremierLEgueController.getLeagueTableAccordingToGoals
+#GET         /api/tables/goals              controllers.TableController.getLeagueTableAccordingToGoals
 
 # serve league table according to number of wins
 +nocsrf
-GET         /api/tables/wins               controllers.TableController.getLeagueTableAccordingToWins
+GET         /api/tables/wins               controllers.PremierLEgueController.getLeagueTableAccordingToWins
+#GET         /api/tables/wins               controllers.TableController.getLeagueTableAccordingToWins
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /*file                         controllers.FrontendController.assetOrDefault(file)
