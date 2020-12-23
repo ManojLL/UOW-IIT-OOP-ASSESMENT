@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ITable} from '../../core/types/table.type';
 import {TableService} from '../../core/services/tableServices/table.service';
+import {MatTabChangeEvent} from "@angular/material/tabs";
 
 @Component({
   selector: 'app-point-table',
@@ -20,9 +21,9 @@ export class PointTableComponent implements OnInit {
   ngOnInit(): void {
     this.getLeagueTableAccordingToPoints().then(r => null)
 
-    this.getLeagueTableAccordingToGoals().then(r => null)
+    // this.getLeagueTableAccordingToGoals().then(r => null)
 
-    this.getLeagueTableAccordingToWins().then(r => null)
+    // this.getLeagueTableAccordingToWins().then(r => null)
   }
 
   async getLeagueTableAccordingToPoints() {
@@ -52,6 +53,19 @@ export class PointTableComponent implements OnInit {
       console.log(this.dataWin)
     } catch (error) {
       console.log(`[ERROR] getAllTableData => ${error.message}`, error);
+    }
+  }
+
+  onChange(event: MatTabChangeEvent) {
+    const tab = event.tab.textLabel;
+    console.log(tab);
+    if(tab==="ACCORDING TO SCORED GOALS")
+    {
+      this.getLeagueTableAccordingToGoals()
+    }
+
+    if(tab == 'ACCORDING TO NUMBER OF WINS'){
+      this.getLeagueTableAccordingToWins();
     }
   }
 }
