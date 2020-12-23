@@ -1,4 +1,4 @@
-<form class="search-form" #myform="ngForm">
+<form class="search-form" #myform="ngForm" (submit)="searchingMatches(year.value,month.value,day.value)">
   <h4>SEARCH MATCH </h4>
   <mat-form-field class="form-full-width">
     <mat-label>YEAR</mat-label>
@@ -11,7 +11,39 @@
            required
            ngModel
     />
+  </mat-form-field>
+  <mat-form-field class="form-full-width">
+    <mat-label>MONTH</mat-label>
+    <input type="number"
+           name="month"
+           #month="ngModel"
+           id="month"
+           matInput
+           placeholder="ex : 12"
+           required
+           ngModel
+           (change)="validateMonth(month.value)"
+    />
+  </mat-form-field>
+  <mat-form-field class="form-full-width">
+    <mat-label>DAY</mat-label>
+    <input type="number"
+           name="day"
+           #day="ngModel"
+           id="day"
+           matInput
+           placeholder="ex : 01"
+           required
+           ngModel
+           (change)="validateDay(day.value)"
+    />
 
   </mat-form-field>
   <button mat-raised-button color="primary" type="submit">Search</button>
 </form>
+
+<mat-card *ngIf="find">
+  <div class="container">
+    <app-page [matchDetails]="matchDetails"></app-page>
+  </div>
+</mat-card>

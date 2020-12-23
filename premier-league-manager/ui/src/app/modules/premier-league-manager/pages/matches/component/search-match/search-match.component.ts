@@ -2,7 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {IDate} from '../../../../core/types/date.type';
 import {MatDialog} from '@angular/material/dialog';
 import {AltertsComponent} from './component/alterts/alterts.component';
+import {IMatchType} from "../../../../core/types/match.type";
+import {MatchesService} from "../../../../core/services/matchService/matches.service";
 
+let month: number;
+let year: number;
+let day: number;
+let data: any;
 
 @Component({
   selector: 'app-search-match',
@@ -10,22 +16,62 @@ import {AltertsComponent} from './component/alterts/alterts.component';
   styleUrls: ['./search-match.component.css']
 })
 export class SearchMatchComponent implements OnInit {
-  currentDate: IDate = {
-    year: 2020,
-    month: 12,
-    day: 12,
-  };
+  matchDetails: IMatchType[] = [];
 
-  constructor(private dialog: MatDialog) {
+  searchDate: IDate;
+  find: boolean;
+
+  constructor(private matchesService: MatchesService) {
   }
 
   ngOnInit(): void {
     //todo : get current date
   }
 
-  openDialog(name: string): void {
-    this.dialog.open(AltertsComponent, {
-      data: name
-    });
+
+  validateMonth(value: number) {
+    if (value > 0 && value <= 12) {
+      month = value;
+      return true;
+    }
+    alert("month is not valid")
+    return false;
+  }
+
+  validateDay(value: number) {
+    if (value > 0 && value <= 31) {
+      day = value;
+      return true;
+    }
+    alert("month is not valid")
+    return false;
+  }
+
+  async searchingMatches(year: number, month: number, day: number) {
+    if (this.validateDay(day) && this.validateMonth(month)) {
+      this.searchDate = {
+        year: year,
+        month: month,
+        day: day
+      }
+      this.matchDetails = [];
+      const matches = await this.matchesService.searchMatch(this.searchDate).toPromise();
+      if (matches.status) {
+        this.find = true;
+        data = matches.response.map(match => {
+          return {
+            teamA: match.teamA.clubName,
+            teamB: match.teamB.clubName,
+            teamAScore: match.teamAScore,
+            teamBScore: match.teamBScore,
+            date: match.date.year.toString() + "/" + match.date.month.toString() + "/" + match.date.day.toString(),
+            status: match.status
+          }
+        })
+        this.matchDetails = data
+      } else {
+        this.find = false;
+      }
+    }
   }
 }
