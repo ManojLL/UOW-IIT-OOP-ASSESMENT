@@ -8,6 +8,7 @@ import leagueManagers.supportClasses.MatchDateCompare;
 import utils.ApplicationIO;
 import utils.PremierLeagueApplication;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -69,6 +70,20 @@ public class MatchService {
         return matchList;
     }
 
-//    public List<Match> searchedMatchData(){}
+    public List<Match> searchedMatchData(int year, int month, int day) {
+        List<Match> matchList = new ArrayList<>();
+        try {
+            Date date = new Date(year, month, day);
+            for (Match match : PremierLeagueManager.getInstance().getMatchList()) {
+                if (match.getDate().equals(date)) {
+                    System.out.println("ad");
+                    matchList.add(match);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("some thing went wong");
+        }
+        return matchList;
+    }
 
 }

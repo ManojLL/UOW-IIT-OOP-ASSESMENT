@@ -16,7 +16,7 @@ import java.util.List;
 public class MatchController extends Controller {
     private static final Logger logger = LoggerFactory.getLogger("MatchController");
 
-    public Result getMatchAccordingToDate(){
+    public Result getMatchAccordingToDate() {
         List<Match> matchList = MatchService.getInstance().matchesAccordingToDate();
         logger.debug("In MatchController.getMatchAccordingToDate(), result is: {}", matchList.toString());
         ObjectMapper mapper = new ObjectMapper();
@@ -24,7 +24,7 @@ public class MatchController extends Controller {
         return ok(PremierLeagueApplication.createResponse(jsonData, true));
     }
 
-    public Result createMatch(){
+    public Result createMatch() {
         Match match = MatchService.getInstance().createNewMatch();
         if (match == null) {
             return badRequest(PremierLeagueApplication.createResponse("no clubs to make a match", false));
@@ -32,5 +32,15 @@ public class MatchController extends Controller {
         logger.debug("In MatchController.createMatch(), result is: {}", match.toString());
         JsonNode jsonObject = Json.toJson(match);
         return ok(PremierLeagueApplication.createResponse(jsonObject, true));
+    }
+
+    public Result searchMatches(int year, int month, int day) {
+        List<Match> list = MatchService.getInstance().searchedMatchData(year, month, day);
+        if (list.size() == 0) {
+            return notFound(PremierLeagueApplication.createResponse("match not found", false));
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonData = mapper.convertValue(list, JsonNode.class);
+        return ok(PremierLeagueApplication.createResponse(jsonData, true));
     }
 }
