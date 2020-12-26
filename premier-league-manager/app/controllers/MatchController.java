@@ -17,6 +17,7 @@ public class MatchController extends Controller {
     private static final Logger logger = LoggerFactory.getLogger("MatchController");
 
     public Result getMatchAccordingToDate() {
+        System.out.println(">>> get matches according to date");
         List<Match> matchList = MatchService.getInstance().matchesAccordingToDate();
         logger.debug("In MatchController.getMatchAccordingToDate(), result is: {}", matchList.toString());
         ObjectMapper mapper = new ObjectMapper();
@@ -25,6 +26,7 @@ public class MatchController extends Controller {
     }
 
     public Result createMatch() {
+        System.out.println(">>> create random match");
         Match match = MatchService.getInstance().createNewMatch();
         if (match == null) {
             return badRequest(PremierLeagueApplication.createResponse("no clubs to make a match", false));
@@ -35,6 +37,7 @@ public class MatchController extends Controller {
     }
 
     public Result searchMatches(int year, int month, int day) {
+        System.out.println(">>> searching matches");
         List<Match> list = MatchService.getInstance().searchedMatchData(year, month, day);
         if (list.size() == 0) {
             return notFound(PremierLeagueApplication.createResponse("match not found", false));

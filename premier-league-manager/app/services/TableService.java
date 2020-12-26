@@ -11,33 +11,33 @@ import java.util.List;
 
 public class TableService {
     private static TableService tableService;
-    private List<FootballClub> footballClubs;
+    private static List<FootballClub> footballClubs;
 
     private TableService() {
-        ApplicationIO.loadClubData();
-        footballClubs = PremierLeagueManager.getInstance().getFootballClubsList();
     }
 
     public synchronized static TableService getTableService() {
+        ApplicationIO.loadClubData();
+        footballClubs = PremierLeagueManager.getInstance().getFootballClubsList();
         if (tableService == null) {
             tableService = new TableService();
         }
         return tableService;
     }
 
-    public List<FootballClub> leagueTableAccordingToPoints() {
+    public synchronized List<FootballClub> leagueTableAccordingToPoints() {
 //        List<FootballClub> listAccordingToPoints = PremierLeagueManager.getInstance().getFootballClubsList();
         Collections.sort(footballClubs);
         return footballClubs;
     }
 
-    public List<FootballClub> leagueTableAccordingToNumOfWins() {
+    public synchronized List<FootballClub> leagueTableAccordingToNumOfWins() {
 //        List<FootballClub> listAccordingToWins = PremierLeagueManager.getInstance().getFootballClubsList();
         Collections.sort(footballClubs, new WinCompare());
         return footballClubs;
     }
 
-    public List<FootballClub> leagueTableAccordingToNumOfGoals() {
+    public synchronized List<FootballClub> leagueTableAccordingToNumOfGoals() {
 //        List<FootballClub> listAccordingToGoals = PremierLeagueManager.getInstance().getFootballClubsList();
         Collections.sort(footballClubs, new GoalCompare());
         return footballClubs;

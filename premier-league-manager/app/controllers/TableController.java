@@ -16,6 +16,7 @@ public class TableController extends Controller {
     private static final Logger logger = LoggerFactory.getLogger("TableController");
 
     public Result getLeagueTableAccordingToPoints() {
+        System.out.println(">>> get leader board according to points");
         List<FootballClub> footballClubList = TableService.getTableService().leagueTableAccordingToPoints();
         logger.debug("In TableController.getLeagueTableAccordingToPoints(), result is: {}", footballClubList.toString());
         ObjectMapper mapper = new ObjectMapper();
@@ -24,6 +25,7 @@ public class TableController extends Controller {
     }
 
     public Result getLeagueTableAccordingToWins() {
+        System.out.println(">>> get leader board according to wins");
         List<FootballClub> footballClubList = TableService.getTableService().leagueTableAccordingToNumOfWins();
         logger.debug("In TableController.getLeagueTableAccordingToWins(), result is: {}", footballClubList.toString());
         ObjectMapper mapper = new ObjectMapper();
@@ -32,6 +34,7 @@ public class TableController extends Controller {
     }
 
     public Result getLeagueTableAccordingToGoals() {
+        System.out.println(">>> get leader board according to goals");
         List<FootballClub> footballClubList = TableService.getTableService().leagueTableAccordingToNumOfGoals();
         logger.debug("In TableController.getLeagueTableAccordingToGoals(), result is: {}", footballClubList.toString());
         ObjectMapper mapper = new ObjectMapper();
