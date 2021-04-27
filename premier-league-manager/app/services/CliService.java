@@ -5,7 +5,8 @@ import entities.clubs.SportClub;
 import entities.date.Date;
 import entities.match.Match;
 import leagueManagers.PremierLeagueManager;
-
+import java.awt.*;
+import java.net.URI;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -26,7 +27,7 @@ public class CliService {
             while (exit()) {
                 Scanner sc = new Scanner(System.in);
                 System.out.println("--------------------------------------------------------------");
-                System.out.println("\t\t\t\t\tADDING CLUB TO LEAGUE");
+                System.out.println("\t\tADDING CLUB TO LEAGUE");
                 System.out.println("--------------------------------------------------------------");
                 System.out.println("* MAXIMUM 20 CLUBS");
                 System.out.println("\n==============================================================");
@@ -56,11 +57,11 @@ public class CliService {
                     if (PremierLeagueManager.getInstance().addClubToLeague(footBallClub))
                         System.out.println("> " + clubName + " club added pro-football league");
                 } else {
-                    System.out.println("* this club has already added to league");
+                    System.out.println("# this club has already added to league");
                 }
             }
         } catch (Exception e) {
-            System.out.println("some went wrong ");
+            System.out.println("# some went wrong ");
         }
 
     }
@@ -75,7 +76,7 @@ public class CliService {
                 }
             }
         } catch (Exception e) {
-            System.out.println("some thing went wrong");
+            System.out.println("# some thing went wrong");
         }
         return true;
     }
@@ -83,7 +84,7 @@ public class CliService {
     private boolean exit() {
         Scanner sc = new Scanner(System.in);
         System.out.println();
-        System.out.println("# if you want to exit press Q otherwise press any key");
+        System.out.println("# press Q/q to exit press any key to continue");
         System.out.print("\n>>> enter option : ");
         String option = sc.next().toLowerCase();
         System.out.println();
@@ -96,7 +97,7 @@ public class CliService {
 
             // check is pro-league list containing club if not then continue
             if (!(PremierLeagueManager.getInstance().getClubCount() > 0)) {
-                System.out.println("no clubs in pro-league");
+                System.out.println("# no clubs in the league");
                 continue;
             }
 
@@ -115,7 +116,7 @@ public class CliService {
      */
     private void showClubList(List<FootballClub> leagueList) {
         System.out.println("--------------------------------------------------------------");
-        System.out.println("\t\t\t\t CLUB LIST");
+        System.out.println("\t\t\t CLUB LIST");
         System.out.println("--------------------------------------------------------------");
         int index = 0;
         if (leagueList.size() > 0) {
@@ -130,8 +131,8 @@ public class CliService {
 
     /*
      * this method is used to select a club from given league club list
-     * @param leagueList = club list in the league typr
-     * @return this return a FootballClub
+     *  leagueList = club list in the league
+     *  this return a FootballClub
      */
     private FootballClub selectAClub(List<FootballClub> leagueList) {
         while (true) {
@@ -139,28 +140,34 @@ public class CliService {
                 //show the club list
                 showClubList(leagueList);
                 Scanner sc = new Scanner(System.in);
-                System.out.print("Enter a club number : ");
+                System.out.print(">>> Enter a club number : ");
                 int clubNumber = sc.nextInt();
                 //check user input is valid
                 if (clubNumber > 0 && clubNumber <= leagueList.size()) {
                     //get the football club from give list and return it
                     return leagueList.get(clubNumber - 1);
                 } else {
-                    System.out.println("your entered number not valid ");
+                    System.out.println("# your entered number not valid ");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("use only numbers ");
+                System.out.println("# use only numbers ");
             }
         }
     }
 
+    /*
+    * display the selected club statics
+    * */
     public void displayClubStats() {
+        System.out.println("\n--------------------------------------------------------------");
+        System.out.println("\t\tDISPLAY STATS OF CLUB ");
+        System.out.println("--------------------------------------------------------------");
         while (exit()) {
 
             //pro league sector
             //check is the list empty
             if (!(PremierLeagueManager.getInstance().getClubCount() > 0)) {
-                System.out.println("no clubs in pro-league");
+                System.out.println("# no clubs in pro-league");
                 continue;
             }
             //select a club and display its stats
@@ -169,13 +176,17 @@ public class CliService {
     }
 
 
+    // display the league table
     public void displayLeagueTable() {
+        System.out.println("\n--------------------------------------------------------------");
+        System.out.println("\t\tDISPLAY LEAGUE TABLE  ");
+        System.out.println("--------------------------------------------------------------");
         while (exit()) {
 
             //pro league section
             // check clubs in list
             if (!(PremierLeagueManager.getInstance().getClubCount() > 0)) {
-                System.out.println("no clubs in pro-league");
+                System.out.println("# no clubs in pro-league");
                 continue;
             }
             //show the club after the sort
@@ -188,20 +199,23 @@ public class CliService {
      * this method used to add played match details
      * */
     public void createMatch() {
+        System.out.println("\n--------------------------------------------------------------");
+        System.out.println("\t\t\tADD A MATCH ");
+        System.out.println("--------------------------------------------------------------");
         try {
             //pro league
             //add matching details
             addMatchDetails(PremierLeagueManager.getInstance().getFootballClubsList());
 
         } catch (Exception e) {
-            System.out.println("Some thing went wrong ");
+            System.out.println("# Some thing went wrong ");
         }
     }
 
     /*
      * this method use to check is the more than one club to c=make a match
-     * @param list club list
-     * @param pm premier league Manager
+     *  list club list
+     *  pm premier league Manager
      */
     private void addMatchDetails(List<FootballClub> list) {
         //check is there enough clubs to make a match
@@ -209,14 +223,14 @@ public class CliService {
             //make match
             PremierLeagueManager.getInstance().addMatch(addAMatch(list));
         } else {
-            System.out.println("no more teams to create a match");
+            System.out.println("# no more teams to create a match");
         }
     }
 
     /*
      * this method used to get match details manually
-     * @param list league club list
-     * @return this return match
+     *  list league club list
+     *  this return match
      */
     private Match addAMatch(List<FootballClub> list) {
         while (true) {
@@ -227,7 +241,7 @@ public class CliService {
 
                 // checking selected clubs are same
                 while ((teamA.equals(teamB))) {
-                    System.out.println("you have choose same team ");
+                    System.out.println("# you have choose same team ");
                     teamB = selectAClub(list);
                 }
                 //get clubs scored goals
@@ -239,20 +253,22 @@ public class CliService {
                 //find the winner
                 String status = "";
                 if (teamAGoals > teamBGoals) {
-                    status = "> " + teamA.getClubName() + " has won the match ";
-                    System.out.println(status);
+                    status = teamA.getClubName() + " has won the match ";
+                    System.out.println("> " + status);
                 } else if (teamBGoals > teamAGoals) {
-                    status = "> " + teamB.getClubName() + " has won the match ";
-                    System.out.println(status);
+                    status = teamB.getClubName() + " has won the match ";
+                    System.out.println("> " + status);
                 } else {
-                    status = "> Match has draw";
-                    System.out.println(status);
+                    status = " Match has draw";
+                    System.out.println("> " + status);
                 }
+                System.out.println();
+                System.out.println();
                 //return the match
                 return (new Match(teamA, teamB, date, teamAGoals, teamBGoals, status));
 
             } catch (Exception e) {
-                System.out.println("some thing went wrong");
+                System.out.println("# some thing went wrong");
             }
         }
     }
@@ -267,59 +283,91 @@ public class CliService {
             try {
                 //get goal club has scored as int
                 Scanner sc = new Scanner(System.in);
-                System.out.print("enter " + teamName + " goals : ");
+                System.out.print(">>> enter " + teamName + " goals : ");
                 return sc.nextInt();
             } catch (InputMismatchException e) {
-                System.out.println("enter only numbers !!");
+                System.out.println("# enter only numbers ");
             }
         }
     }
 
     //add date
     public Date addDate() {
-        System.out.println("add a date");
-        System.out.print("enter year : ");
+        System.out.println("~~~~~~~~~~  add a date  ~~~~~~~~~~~\n");
         int year = validateYear();
         int month = validateDates(12, "month");
         int day = validateDates(31, "day");
         return new Date(year, month, day);
     }
 
+    // validate the year
     private int validateYear() {
         while (true) {
             try {
                 Scanner sc = new Scanner(System.in);
-                System.out.print("enter year : ");
+                System.out.print(">>> enter year : ");
                 int date = sc.nextInt();
                 Date today = PremierLeagueManager.getInstance().getCurrentDate();
                 //validate the year using current date
                 if (!(date <= today.getYear() && date >= today.getYear() - 1)) {
-                    System.out.println("* wrong year pla");
+                    System.out.println("# wrong input year ");
                 } else {
                     return date;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("use numbers only");
+                System.out.println("# use numbers only");
             }
         }
     }
 
+    // validate the months and day
     private int validateDates(int max, String s) {
 
         while (true) {
             try {
                 Scanner sc = new Scanner(System.in);
-                System.out.print("enter " + s + " : ");
+                System.out.print(">>> enter " + s + " : ");
                 int date = sc.nextInt();
                 if (!(date <= max && date >= 1)) {
-                    System.out.println("wrong input>>>");
+                    System.out.println("# wrong input");
                 } else {
                     return date;
                 }
             } catch (InputMismatchException e) {
 
-                System.out.println("use numbers only");
+                System.out.println("# use numbers only");
             }
+        }
+    }
+
+    // open default brower
+    public void openTheBrowser() {
+        try {
+            // this is the url
+            URI linkToPage = new URI("http://localhost:9000/premierLeague-manager/home");
+            Desktop.getDesktop().browse(linkToPage);
+        } catch (Exception e) {
+            System.out.println("can not open the browser");
+        }
+    }
+
+    // create a new season or load previous saved data
+    public void createNewSeason() {
+        Scanner userInput = new Scanner(System.in);
+        System.out.println("\n\n=============================================================");
+        // load previous data
+        System.out.println("1       =  create new season ");
+        System.out.println("any key =  load previous data ");
+
+        System.out.print(">>> enter your option : ");
+        String value = userInput.next();
+        System.out.println("=============================================================\n");
+        if (value.equals("1")) {
+            System.out.println("# CREATE A NEW SEASON");
+            PremierLeagueManager.getInstance().saveData();
+        } else {
+            System.out.println("# PREVIOUS DATA : ");
+            PremierLeagueManager.getInstance().loadData();
         }
     }
 }

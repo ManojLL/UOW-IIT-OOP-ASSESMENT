@@ -4,9 +4,6 @@ import entities.clubs.FootballClub;
 import entities.clubs.SportClub;
 import entities.date.Date;
 import entities.match.Match;
-import leagueManagers.supportClasses.GoalCompare;
-import leagueManagers.supportClasses.WinCompare;
-
 import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
@@ -16,8 +13,8 @@ public class PremierLeagueManager implements LeagueManager {
     private static final int WIN_POINT = 2;
     private static final int DEFEAT_POINT = 0;
     private static final int DRAW_POINT = 1;
-    private static final String CLUB_FILE_PATH = "../public/club.txt";
-    private static final String MATCH_FILE_PATH = "../public/matches.txt";
+    private static final String CLUB_FILE_PATH = "public/club.txt";
+    private static final String MATCH_FILE_PATH = "public/matches.txt";
     private List<FootballClub> footballClubsList = new ArrayList<>(MAX_COUNT);
     private List<Match> matchList = new ArrayList<>();
     private static PremierLeagueManager instance;
@@ -48,7 +45,7 @@ public class PremierLeagueManager implements LeagueManager {
             clubCount++;
             return true;
         } catch (Exception e) {
-            System.out.println("The programme went wrong");
+            System.out.println("# The programme went wrong");
         }
         return false;
     }
@@ -58,11 +55,13 @@ public class PremierLeagueManager implements LeagueManager {
         try {
             if (!(sportClub instanceof FootballClub)) return false;
             FootballClub footballClub = (FootballClub) sportClub;
-            footballClubsList.remove(footballClub);
-            clubCount--;
-            return true;
+            if (footballClubsList.remove(footballClub)) {
+                clubCount--;
+                return true;
+            }
+            return false;
         } catch (Exception e) {
-            System.out.println("programme went wrong");
+            System.out.println("# programme went wrong");
         }
         return false;
     }
@@ -71,33 +70,44 @@ public class PremierLeagueManager implements LeagueManager {
     public void displayStatsOfClub(SportClub sportClub) {
         try {
             if (sportClub instanceof FootballClub) {
+                String leftAlignFormat = "| %-8s | %-18s | %-15d | %-5d | %-5d | %-5d | %-5d | %-5d | %-10d |%n";
+                System.out.format("+~~~~~~~~~~+~~~~~~~~~~~~~~~~~~~~+~~~~~~~~~~~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~~~~~~+%n");
+                System.out.format("| Position |     Club name      |  played matches |   w   |   L   |   D   |  S/G  |  R/G  |   Points   |\n");
+                System.out.format("+~~~~~~~~~~+~~~~~~~~~~~~~~~~~~~~+~~~~~~~~~~~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~~~~~~+%n");
                 FootballClub footballClub = (FootballClub) sportClub;
-                System.out.println("number of played match : " + footballClub.getNumOfPlayedMatch());
-                System.out.println("number of wins : " + footballClub.getNumOfWin());
-                System.out.println("number of defeat : " + footballClub.getNumOfDefeat());
-                System.out.println("number of draws : " + footballClub.getNumOfDraw());
-                System.out.println("number of scored goals : " + footballClub.getScoredGoal());
-                System.out.println("number of received goals : " + footballClub.getReceivedGoal());
-                System.out.println("season points : " + footballClub.getPoint());
+                System.out.format(leftAlignFormat, 1, footballClub.getClubName(), footballClub.getNumOfPlayedMatch(),
+                        footballClub.getNumOfWin(), footballClub.getNumOfDefeat(), footballClub.getNumOfDraw(),
+                        footballClub.getScoredGoal(), footballClub.getReceivedGoal(), footballClub.getPoint());
+                System.out.format("+~~~~~~~~~~+~~~~~~~~~~~~~~~~~~~~+~~~~~~~~~~~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~~~~~~+%n");
+
             }
         } catch (Exception e) {
-            System.out.println("Programme went wrong");
+            System.out.println("# Programme went wrong");
         }
     }
 
     @Override
     public void displayLeagueTable() {
         try {
+            String leftAlignFormat = "| %-8s | %-18s | %-15d | %-5d | %-5d | %-5d | %-5d | %-5d | %-10d |%n";
+
+            System.out.format("+~~~~~~~~~~+~~~~~~~~~~~~~~~~~~~~+~~~~~~~~~~~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~~~~~~+%n");
+            System.out.format("| Position |     Club name      |  played matches |   w   |   L   |   D   |  S/G  |  R/G  |   Points   |\n");
+            System.out.format("+~~~~~~~~~~+~~~~~~~~~~~~~~~~~~~~+~~~~~~~~~~~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~~~~~~+%n");
             if (clubCount > 0) {
                 int index = 1;
                 Collections.sort(footballClubsList);
                 for (FootballClub footballClub : footballClubsList) {
-                    System.out.println(index + " >>" + footballClub.getClubName() + "\t" + footballClub.getPoint());
+                    System.out.format(leftAlignFormat, index, footballClub.getClubName(), footballClub.getNumOfPlayedMatch(),
+                            footballClub.getNumOfWin(), footballClub.getNumOfDefeat(), footballClub.getNumOfDraw(),
+                            footballClub.getScoredGoal(), footballClub.getReceivedGoal(), footballClub.getPoint());
+                    System.out.format("+~~~~~~~~~~+~~~~~~~~~~~~~~~~~~~~+~~~~~~~~~~~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~+~~~~~~~~~~~~+%n");
                     index++;
                 }
+
             }
         } catch (Exception e) {
-            System.out.println("programme went wrong");
+            System.out.println("# programme went wrong");
         }
     }
 
@@ -109,8 +119,6 @@ public class PremierLeagueManager implements LeagueManager {
             FootballClub teamB = match.getTeamB();
             teamA.setNumOfPlayedMatch();
             teamB.setNumOfPlayedMatch();
-//            teamA.setMatchList(match);
-//            teamB.setMatchList(match);
             teamA.setScoredGoal(match.getTeamAScore());
             teamA.setReceivedGoal(match.getTeamBScore());
             teamB.setScoredGoal(match.getTeamBScore());
@@ -133,19 +141,20 @@ public class PremierLeagueManager implements LeagueManager {
             }
 
         } catch (Exception e) {
-            System.out.println("Programme went wrong");
+            System.out.println("# Programme went wrong");
         }
     }
 
     @Override
     public void saveData() {
-        System.out.println("saving data --");
         saveToFile(footballClubsList, CLUB_FILE_PATH);
         saveToFile(matchList, MATCH_FILE_PATH);
     }
 
     @Override
     public void loadData() {
+        footballClubsList.clear();
+        matchList.clear();
         loadDataFromFile(CLUB_FILE_PATH, "clubs");
         loadDataFromFile(MATCH_FILE_PATH, "matches");
     }
@@ -188,7 +197,7 @@ public class PremierLeagueManager implements LeagueManager {
             fileOutputStream.close();
             objectOutputStream.close();
         } catch (EOFException | FileNotFoundException e) {
-            System.out.println("file not found");
+            System.out.println("# file not found");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -209,15 +218,14 @@ public class PremierLeagueManager implements LeagueManager {
                         clubCount++;
                     }
                 } catch (EOFException e) {
-                    System.out.println("loaded");
+                    System.out.println("# data loaded");
                     break;
                 }
             }
             fileInputStream.close();
             objectInputStream.close();
         } catch (Exception e) {
-            System.out.println("no data to load");
+            System.out.println("# no data to load");
         }
     }
-
 }

@@ -3,8 +3,8 @@ package utils;
 import leagueManagers.PremierLeagueManager;
 
 public class ApplicationIO {
-    private final static String MATCH_FILE_PATH = "public/matches.txt";
-    private final static String CLUB_FILE_PATH = "public/club.txt";
+    private final static String MATCH_FILE_PATH = "app/public/matches.txt";
+    private final static String CLUB_FILE_PATH = "app/public/club.txt";
 
     public static void loadClubData() {
             PremierLeagueManager.getInstance().getFootballClubsList().clear();
@@ -17,6 +17,7 @@ public class ApplicationIO {
     }
 
     public static void saveMatchData() {
+        System.out.println("save data");
         PremierLeagueManager.getInstance().saveToFile(PremierLeagueManager.getInstance().getMatchList(), MATCH_FILE_PATH);
     }
 

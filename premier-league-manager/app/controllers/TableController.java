@@ -15,6 +15,7 @@ import java.util.List;
 public class TableController extends Controller {
     private static final Logger logger = LoggerFactory.getLogger("TableController");
 
+    // sort the league table according to points
     public Result getLeagueTableAccordingToPoints() {
         System.out.println(">>> get leader board according to points");
         List<FootballClub> footballClubList = TableService.getTableService().leagueTableAccordingToPoints();
@@ -24,6 +25,7 @@ public class TableController extends Controller {
         return ok(PremierLeagueApplication.createResponse(jsonData, true));
     }
 
+    // sort the league table according to wins
     public Result getLeagueTableAccordingToWins() {
         System.out.println(">>> get leader board according to wins");
         List<FootballClub> footballClubList = TableService.getTableService().leagueTableAccordingToNumOfWins();
@@ -33,6 +35,7 @@ public class TableController extends Controller {
         return ok(PremierLeagueApplication.createResponse(jsonData, true));
     }
 
+    // sort the league table according to scored goals
     public Result getLeagueTableAccordingToGoals() {
         System.out.println(">>> get leader board according to goals");
         List<FootballClub> footballClubList = TableService.getTableService().leagueTableAccordingToNumOfGoals();

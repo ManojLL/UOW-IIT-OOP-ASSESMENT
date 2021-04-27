@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {IDate} from '../../../../core/types/date.type';
-import {MatDialog} from '@angular/material/dialog';
-import {AltertsComponent} from './component/alterts/alterts.component';
 import {IMatchType} from "../../../../core/types/match.type";
 import {MatchesService} from "../../../../core/services/matchService/matches.service";
 
@@ -55,22 +53,27 @@ export class SearchMatchComponent implements OnInit {
         day: day
       }
       this.matchDetails = [];
-      const matches = await this.matchesService.searchMatch(this.searchDate).toPromise();
-      if (matches.status) {
-        this.find = true;
-        data = matches.response.map(match => {
-          return {
-            teamA: match.teamA.clubName,
-            teamB: match.teamB.clubName,
-            teamAScore: match.teamAScore,
-            teamBScore: match.teamBScore,
-            date: match.date.year.toString() + "/" + match.date.month.toString() + "/" + match.date.day.toString(),
-            status: match.status
-          }
-        })
-        this.matchDetails = data
-      } else {
-        this.find = false;
+      try {
+        const matches = await this.matchesService.searchMatch(this.searchDate).toPromise();
+        if (matches.status) {
+          this.find = true;
+          data = matches.response.map(match => {
+            return {
+              teamA: match.teamA.clubName,
+              teamB: match.teamB.clubName,
+              teamAScore: match.teamAScore,
+              teamBScore: match.teamBScore,
+              date: match.date.year.toString() + "/" + match.date.month.toString() + "/" + match.date.day.toString(),
+              status: match.status
+            }
+          })
+          this.matchDetails = data
+        } else {
+          alert("no match found to this date")
+        }
+      } catch (error) {
+        console.log(`[ERROR] getAllTableData => ${error.message}`, error);
+        alert("no match found to this date")
       }
     }
   }

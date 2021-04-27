@@ -33,6 +33,7 @@ export class AddMatchComponent implements OnInit {
       }
     } catch (error) {
       console.log(`[ERROR] getAllTableData => ${error.message}`, error);
+      alert("no clubs to make a match");
     }
   }
 }

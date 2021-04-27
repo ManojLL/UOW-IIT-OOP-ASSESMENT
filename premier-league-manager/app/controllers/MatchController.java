@@ -10,12 +10,12 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import services.MatchService;
 import utils.PremierLeagueApplication;
-
 import java.util.List;
 
 public class MatchController extends Controller {
     private static final Logger logger = LoggerFactory.getLogger("MatchController");
 
+    // get matches according to dates (defending order)
     public Result getMatchAccordingToDate() {
         System.out.println(">>> get matches according to date");
         List<Match> matchList = MatchService.getInstance().matchesAccordingToDate();
@@ -25,6 +25,7 @@ public class MatchController extends Controller {
         return ok(PremierLeagueApplication.createResponse(jsonData, true));
     }
 
+    // generate a random match
     public Result createMatch() {
         System.out.println(">>> create random match");
         Match match = MatchService.getInstance().createNewMatch();
@@ -36,6 +37,7 @@ public class MatchController extends Controller {
         return ok(PremierLeagueApplication.createResponse(jsonObject, true));
     }
 
+    // search matches on specific date
     public Result searchMatches(int year, int month, int day) {
         System.out.println(">>> searching matches");
         List<Match> list = MatchService.getInstance().searchedMatchData(year, month, day);

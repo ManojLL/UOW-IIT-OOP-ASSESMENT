@@ -1,5 +1,6 @@
-<div>
-  <mat-tab-group [color]="color" [backgroundColor]="bgColor" mat-align-tabs="center" (selectedTabChange)="onChange($event)">
+<div >
+  <mat-tab-group [color]="color" [backgroundColor]="bgColor" mat-align-tabs="center"
+                 (selectedTabChange)="onChange($event)">
     <mat-tab label="ACCORDING TO POINTS">
       <mat-card>
         <app-table [data]="dataPoint" class="container-point-table"></app-table>
@@ -16,5 +17,5 @@
       </mat-card>
     </mat-tab>
   </mat-tab-group>
-
 </div>
+
